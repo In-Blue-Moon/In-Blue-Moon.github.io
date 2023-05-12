@@ -322,7 +322,7 @@ function submitToFormspree(email) {
 	};
 
 	// Make an HTTP POST request to the Formspree endpoint
-	fetch("https://formspree.io/xknayqpb", {
+	fetch("https://formspree.io/mrgvdevr", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
