@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quizz</title>
+  <link rel="icon" type="image/x-icon" href="./data/favicon.ico">
+  <link rel="stylesheet" href="copycat.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div id="wrapper">
+        <header id="header">
+            <h1>Copycat</h1>
+        </header>
+        <div id="main">
+            <section id="intro" class="main">
+                <div class="spotlight">
+                    <div id="initial" class="content">
+                        <header class="major">
+                            <h2 style="text-align: center; padding-right: 1px;">This is a study</h2>
+                        </header>
+                        
+                        <div style="display: flex; justify-content: center; align-items: center; padding: 5px;">
+                            <img src="./data/cat.jpg" alt="Puzzle A" style="max-width: 100%; height: auto;">
+                        </div>
+                        <p style="margin-bottom: 10; text-align: center;">
+                            This is a study condtucted by the university of Luxembourg.
+                        </p>
+                        <p style="text-align: center;">
+                            No personal data will be collected.
+                        </p>
+                        
+                        <div style="text-align: center;" id="user-input">
+                            <label for="prolificID"><b>Prolific ID:</b></label>
+                            <input type="text" id="prolificID">
+                        </div>
+                        <br>
+                        <p style="text-align: center;">
+                            <button id="start-btn" onclick="startPuzzle()" class="button primary">Start</button>
+                        </p>
+                    </div>
+                    
+                    <div id="puzzle" class="content" style="display: none;">
+                        <div class="timer-container" style="display: none;">
+                            <div id="timer" class="timer">05:00</div>
+                        </div>
+                        <header class="major">
+                            <h2 id="puzzle-number" style="text-align: center;">Puzzle 1/5</h2>
+                        </header>
+                        <hr>
+                        <div style="display: flex; justify-content: center; align-items: center; padding: 5px;">
+                            <img id="puzzle-img" src="./data/hospital.png" alt="Puzzle A" style="max-width: 100%; height: auto;">
+                        </div>
+                        <div style="text-align: center;">
+                             <p id="puzzle-text" type="text" style="border-radius: 10px; border: 1px solid gray; padding: 5px; text-align: center;">
+                                puzzle
+                            </p>
+                        </div>
+                        <div id="hidden-solution" style="text-align: center; display: none; border-radius: 10px; border: 1px solid rgb(87, 227, 40); padding: 5px;">
+                            <h2 style="text-align: left;"><b>Solution:</b></h2>
+                             <p id="puzzle-solution" type="text">
+                                puzzle solution
+                            </p>
+                        </div>    
+                        <div style="text-align: center;" id="user-input">
+                            <label for="answer"><b>Answer:</b></label>
+                            <input type="text" id="answer">
+                        </div>
+                            
+                        
+                        
+                        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+                            <button id="submit-btn" onclick="submitAnswer()" class="button primary" >Submit</button>
+                            <button id="next-btn" onclick="goNext()" class="button primary" style="display: none;">Next</button>
+                            <button id="finish-btn" onclick="emailPromt()" class="button primary" style="display: none;">Finish</in>
+                        </div>
+                    </div>
+                    <dialog class="modal" id="finish-modal">
+                        <div class="center">
+                            <h2>Are you sure you want to submit?</h2>
+                            <p>Warning! After clicking the 'Finish' button, the quizz is over and you can't go back.</p>
+                            <div>
+                                <button class="submit" id="cancel">Cancel</button>
+                                <button class="button.submit" id="finish-quizz">Finish Quizz</button>
+                            </div>
+                        </div>     
+                    </dialog>
+                    <dialog class="modal" id="email-prompt">
+                        <div id="modal-phase1" class="center">
+                            <p id="modal-score" style="align-items: left;"><b>Result:</b>0/4</p>
+                            <h2 style="color: #8cc9f0"><b>Subscribe for more</b></h2>
+                            <p style="text-align: center;">Subscribe to our mailing list to get send more fun riddles and brainteasers send directly to you every week.</p>
+                            <p> </p>
+                            <div class="modal-buttons">
+                                <button class="button.submit" type="submit" onclick="modalEmailInput()">Sign up to receive riddles weekly</button>
+                                <button class="button.sumbit" id="close-modal" onclick="refuseEmail()">No, I don't want to train my brain</button>
+                            </div>
+                        </div>
+                        <div id="modal-phase2" class="center" style="display: none; text-align: center;">
+                            <h2 style="color: #8cc9f0"><b>Subscribe for more</b></h2>
+                            <p style="text-align: center;">Subscribe to our mailing list to get send more fun riddles and brainteasers send directly to you every week.</p>
+                            <label><b>Your email:</b> <input placeholder="Enter your email" id="email" type="text"></label> <br>
+                            <span id="emailErrorMessage" class="error-message" style="display: none; color: red; font-size: 12px; margin-top: 4px;"></span>
+                            <p> </p>
+                            <div class="modal-buttons">
+                                <button id="submit-email-btn" class="button.submit" type="submit" onclick="submitEmail()">Submit</button>
+                                <button class="button.sumbit" id="cancel-email" onclick="cancelEmail()">Cancel</button>
+                            </div>
+                        </div>
+                        
+                    </dialog>
+                </div>  
+            </section>
+        </div>
+    </div>
+    <script src="copycat.js"></script>
+    
+</body>
