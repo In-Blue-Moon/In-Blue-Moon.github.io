@@ -280,7 +280,7 @@ function emailPromt() {
 }
 
 function refuseEmail() {
-	window.location.href = 'https://forms.gle/zn7w5S56PpZigtqo8';
+	window.location.href = 'https://forms.gle/gmJbr7y4hCbc9rA67';
 	submitToFormspree("None-Refused");
 }
 
@@ -299,13 +299,13 @@ function submitEmail() {
     	emailErrorMessage.style.display = "inline";
 	} else {
 		email = "Submitted";
-		window.location.href = 'https://forms.gle/zn7w5S56PpZigtqo8';
+		window.location.href = 'https://forms.gle/gmJbr7y4hCbc9rA67';
 		submitToFormspree(email);
 	}	
 }
 
 function cancelEmail() {
-	window.location.href = 'https://forms.gle/zn7w5S56PpZigtqo8';
+	window.location.href = 'https://forms.gle/gmJbr7y4hCbc9rA67';
 	submitToFormspree("None-Canceled");
 }
 
