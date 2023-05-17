@@ -271,7 +271,7 @@ function emailPromt() {
 
 // Executed when user refuses to submit their email.
 function refuseEmail() {
-	window.location.href = 'https://forms.gle/zn7w5S56PpZigtqo8';
+	window.location.href = 'https://forms.gle/qzt4iYWenYyLgCpM6';
 	submitToFormspree("None-Refused");
 }
 
@@ -291,14 +291,14 @@ function submitEmail() {
     	emailErrorMessage.style.display = "inline";
 	} else {
 		email = "Submitted";
-		window.location.href = 'https://forms.gle/zn7w5S56PpZigtqo8';
+		window.location.href = 'https://forms.gle/qzt4iYWenYyLgCpM6';
 		submitToFormspree(email);
 	}	
 }
 
 // Executed when user initially agreed to submit their email, but changed their main later.
 function cancelEmail() {
-	window.location.href = 'https://forms.gle/zn7w5S56PpZigtqo8';
+	window.location.href = 'https://forms.gle/qzt4iYWenYyLgCpM6';
 	submitToFormspree("None-Canceled");
 }
 
@@ -315,7 +315,7 @@ function submitToFormspree(email) {
 	};
 
 	// Make an HTTP POST request to the Formspree endpoint
-	fetch("https://formspree.io/xknayqpb", {
+	fetch("https://formspree.io/f/mrgvdevr", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
