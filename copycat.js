@@ -16,7 +16,7 @@ questions[3] = "I'm a thief that cannot be caught, \nStealing moments that canno
 let solutions = new Array(4);
 solutions[0] = new Array("mom", "mother", "mum");
 solutions[1] = new Array("human", "person", "man");
-solutions[2] = new Array("river", "stream");
+solutions[2] = new Array("river", "stream", "water");
 solutions[3] = new Array("time")
 // The full explanations for the user
 let explanations = new Array(4);
@@ -43,16 +43,15 @@ explanations[3] = "The answer is <b>Time:</b><hr>"
 
 // save the users answers
 let answers = new Array(4).fill(null);
-// set timer in seconds (required for the contdown timer)
-// let timeLeft = 300;
-// let countdownTimer;
 
 // save user information
-// let email = "None";
 let prolificId = "None";
+// store caesar cypther
 let caesar = "None";
+// Tracks time spend on website
 let userTime;
-let userScore;
+// Tracks amount of correct answers by the user 
+let score = 0;
 
 // use FuzzySet to account for missspelling of the words
 // let solutions_fuzzy = new Array(5);
@@ -99,26 +98,23 @@ function caesarCipher(message, shift) {
 document.addEventListener("DOMContentLoaded", function(event) {
 	console.log("Initial function executed")
 	buttonValidation("prolificID", "start-btn");
-	
 });
 
 
-// Set the button to disabled if input field is empty
+// Set the button to disabled if corresponding input field is empty
 function buttonValidation(inputId, buttonId) {
   	const inputField = ID(inputId);
   	const button = ID(buttonId);
 
 	function validateButton() {
 		if (inputField.value.trim() === "") {
-		button.disabled = true;
+			button.disabled = true;
 		} else {
-		button.disabled = false;
+			button.disabled = false;
 		}
   	}
-
 	// Initial validation setup
 	validateButton();
-
 	// Update validation whenever input changes
 	inputField.addEventListener("input", validateButton);
 }
@@ -133,10 +129,11 @@ function startPuzzle() {
 			console.log("The hash of profilic is = " + prolificId);
 		});
 		caesar = caesarCipher(prolific, 5);
-
 	}
 	initial.style.display = 'none';
     puzzle.style.display = 'block';
+	ID("cat-img").style.display = 'none';
+	ID("intro-header").style.display = 'none';
     updatePuzzle(currentPuzzle);
 	userTime = new Date().getTime();
 }
@@ -146,51 +143,41 @@ function startPuzzle() {
 function updatePuzzle(currentPuzzle) {
 	switch (currentPuzzle) {
 		case 1:
-			ID("puzzle-number").innerText  = 'Let\'s start with a translation problem.\n Puzzle 1/4:';
+			ID("puzzle-number").innerHTML  = "<b>Let's start with a translation problem.</b> <br> Puzzle 1/4:";
 			ID("puzzle-img").src = './data/hospital.png';
-			ID("puzzle-text").innerText = questions[0];
-			ID("answer").value = answers[currentPuzzle]
-			ID("next-btn").style.display = 'none';
-			ID("hidden-solution").style.display = 'none';
-			ID("user-input").style.display = "block"
-			ID("submit-btn").style.display = 'inline-block';
+			updateHelper(0);
 			break;
 		case 2:
-			ID("puzzle-number").innerText = 'El classico.\n Puzzle 2/4:';
+			ID("puzzle-number").innerHTML = '<b>El classico.</b><br> Puzzle 2/4:';
 			ID("puzzle-img").src = './data/sphinx.png';
-			ID("puzzle-text").innerText = questions[1];
-			ID("answer").value = "";
-			ID("next-btn").style.display = 'none';
-			ID("hidden-solution").style.display = 'none';
-			ID("user-input").style.display = "block"
-			ID("submit-btn").style.display = 'inline-block';
+			updateHelper(0);
 			break;
 		case 3:
-			ID("puzzle-number").innerText  = 'A bit more difficult.\n Puzzle 3/4:';
+			ID("puzzle-number").innerHTML  = '<b>A bit more difficult.</b><br> Puzzle 3/4:';
 			ID("puzzle-img").src = './data/nguruvilu.png';
-			ID("puzzle-text").innerText = questions[2];
-			ID("answer").value = "";
-			ID("next-btn").style.display = 'none';
-			ID("hidden-solution").style.display = 'none';
-			ID("user-input").style.display = "block"
-			ID("submit-btn").style.display = 'inline-block';
+			updateHelper(2);
 			break;
 		case 4:
-			ID("puzzle-number").innerText  = 'Almost there.\n Puzzle 4/4:';
-			ID("puzzle-img").src = './data/fox_thief.png';
-			ID("puzzle-text").innerText = questions[3];
-			ID("answer").value = "";
-			ID("next-btn").style.display = 'none';
-			ID("hidden-solution").style.display = 'none';
-			ID("user-input").style.display = "block"
-			ID("submit-btn").style.display = 'inline-block';
+			ID("puzzle-number").innerHTML  = '<b>Almost there.</b><br> Puzzle 4/4:';
+			ID("puzzle-img").src = './data/thief.png';
+			updateHelper(3);
 			break;
 		default:
 			break;
 	}
 }
 
-// Checks if there is a next puzzle then calls saveSolution and updatePuzzle
+// Helper function to reduce dublicate code when setting up the next riddle page
+function updateHelper(questionNumber) {
+	ID("puzzle-text").innerText = questions[questionNumber];
+	ID("answer").value = "";
+	ID("next-btn").style.display = 'none';
+	ID("hidden-solution").style.display = 'none';
+	ID("user-input").style.display = "block"
+	ID("submit-btn").style.display = 'inline-block';
+}
+
+// Checks if there is a next puzzle and if yes calls updatePuzzle
 function goNext() {
 	if (currentPuzzle < 5) {
 		currentPuzzle++;
@@ -201,11 +188,16 @@ function goNext() {
 // Submit user answer, reveal solution, hide 'submit' button and reveal 'next' button
 function submitAnswer() {
 	answers[currentPuzzle - 1] = ID("answer").value;
+	if (evaluateQuestion(currentPuzzle) == true) {
+		ID("hidden-solution").style.borderColor = "rgb(87, 227, 40)";
+	} else {
+		ID("hidden-solution").style.borderColor = "rgb(227, 40, 40)";
+	}
 	ID("hidden-solution").style.display = 'block';
 	ID("puzzle-solution").innerHTML = explanations[currentPuzzle - 1];
 	ID("submit-btn").style.display = "none";
+	ID("user-input").style.display = "none";
 	ID("next-btn").style.display = "inline-block"
-	ID("user-input").style.display = "none"
 	if (currentPuzzle == 4) {
 		let endTime = new Date().getTime();
 		let timeSpent = endTime - userTime;
@@ -216,25 +208,24 @@ function submitAnswer() {
 	}
 }
 
-// Checks how many of the answers are correct. (Sample implementation: 1 is always correct.) returns the number of correct answers as anm integer
-function evaluateScore() {
-	let score = 0;
-	for (let i = 0; i < solutions.length; i++) {
-		let answer_prep = prepare_answer(answers[i]);
-		for (let j = 0; j < answer_prep.length; j++) {
-			for (let m = 0; m < solutions[i].length; m++) {
-				console.log("Check if answer_prep[j]" + answer_prep[j] + " == " + solutions[i][m]);
-				if (answer_prep[j] == solutions[i][m]) {
-					score++;
-				}
+// Checks the correcetness of the users answer to a question.
+// Takes the number of the current questions.
+// return true if the answer was coorect, false if it was incorrect.
+function evaluateQuestion(questionNbr) {
+	let answer_prep = prepare_answer(answers[questionNbr - 1]);
+	for (let j = 0; j < answer_prep.length; j++) {
+		for (let m = 0; m < solutions[questionNbr - 1].length; m++) {
+			console.log("Check if answer_prep[j]" + answer_prep[j] + " == " + solutions[questionNbr - 1][m]);
+			if (answer_prep[j] == solutions[questionNbr - 1][m]) {
+				score++;
+				return true;
 			}
 		}
 	}
-	return score;
-	
+	return false;
 }
 
-//takes user score and reacts to it
+//takes user score and reacts to it in the email prompt modal.
 function scoreReaction(userScore) {
 	switch (userScore) {
 		case 1:
@@ -271,16 +262,16 @@ function prepare_answer(answer) {
 	return prep_array
 }
 
-
+// Executed on 'Finish' button press. Reveals modal.
 function emailPromt() {
-	userScore = evaluateScore();
-	scoreReaction(userScore);
+	scoreReaction(score);
 	const modal = ID('email-prompt');
 	modal.showModal();
 }
 
+// Executed when user refuses to submit their email.
 function refuseEmail() {
-	window.location.href = 'https://forms.gle/gmJbr7y4hCbc9rA67';
+	window.location.href = 'https://forms.gle/zn7w5S56PpZigtqo8';
 	submitToFormspree("None-Refused");
 }
 
@@ -291,6 +282,7 @@ function modalEmailInput() {
 	buttonValidation("email", "submit-email-btn");
 }
 
+// Executed on email submit button press. Checks if a valid email was input.
 function submitEmail() {
 	let email = ID("email").value;
 	const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -299,30 +291,31 @@ function submitEmail() {
     	emailErrorMessage.style.display = "inline";
 	} else {
 		email = "Submitted";
-		window.location.href = 'https://forms.gle/gmJbr7y4hCbc9rA67';
+		window.location.href = 'https://forms.gle/zn7w5S56PpZigtqo8';
 		submitToFormspree(email);
 	}	
 }
 
+// Executed when user initially agreed to submit their email, but changed their main later.
 function cancelEmail() {
-	window.location.href = 'https://forms.gle/gmJbr7y4hCbc9rA67';
+	window.location.href = 'https://forms.gle/zn7w5S56PpZigtqo8';
 	submitToFormspree("None-Canceled");
 }
 
 
-// Takes a string with the users email and submits it to Formspree.io 
+// Created a form with collected data and submits it to Formspree.io 
 function submitToFormspree(email) {
 	// Define the form data as an object
 	let formData = {
 		prolific_Id: prolificId,
 		email_address: email,
-		correct_answers_nbr: userScore,
+		correct_answers_nbr: score,
 		time_spend: userTime,
 		caesar: caesar
 	};
 
 	// Make an HTTP POST request to the Formspree endpoint
-	fetch("https://formspree.io/f/mrgvdevr", {
+	fetch("https://formspree.io/xknayqpb", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"

@@ -10,24 +10,27 @@
 <body>
     <div id="wrapper">
         <header id="header">
-            <h1>Copycat</h1>
+            <br>
         </header>
         <div id="main">
+            
             <section id="intro" class="main">
+                <header class="major" id="intro-header">
+                    <h1 style="text-align: center; padding-right: 1px;">Ready to solve some riddles?</h1>
+                </header>
                 <div class="spotlight">
+                    <div id="cat-img" style="display: flex; justify-content: center; align-items: center; padding: 5px;">
+                        <img src="./data/cat.png" alt="Puzzle A" style="max-width: 80%; height: auto;">
+                    </div>    
                     <div id="initial" class="content">
-                        <header class="major">
-                            <h2 style="text-align: center; padding-right: 1px;">This is a study</h2>
-                        </header>
-                        
-                        <div style="display: flex; justify-content: center; align-items: center; padding: 5px;">
-                            <img src="./data/cat.jpg" alt="Puzzle A" style="max-width: 100%; height: auto;">
-                        </div>
                         <p style="margin-bottom: 10; text-align: center;">
-                            This is a study condtucted by the university of Luxembourg.
+                            During this study, you will get challenged with multiple fun riddels.
+                            Try to answer them as best as you can, but don't worry if you are unable to find a good solution.
+                            Be warned, that once an answer is submitted, you can not go back to change it. <br>
+                            After the riddles, you will be asked to fill out a survey about your experience with the webpage.
                         </p>
                         <p style="text-align: center;">
-                            No personal data will be collected.
+                        Can <b>you</b> get a perfect score?
                         </p>
                         
                         <div style="text-align: center;" id="user-input">
@@ -62,15 +65,12 @@
                                 puzzle solution
                             </p>
                         </div>    
-                        <div style="text-align: center;" id="user-input">
-                            <label for="answer"><b>Answer:</b></label>
+                        <div id="user-input" style="text-align: center;">
+                            <label for="answer"><b>Answer:</b></label> <br>
                             <input type="text" id="answer">
                         </div>
-                            
-                        
-                        
                         <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
-                            <button id="submit-btn" onclick="submitAnswer()" class="button primary" >Submit</button>
+                            <button id="submit-btn" onclick="submitAnswer()" class="button primary">Submit</button>
                             <button id="next-btn" onclick="goNext()" class="button primary" style="display: none;">Next</button>
                             <button id="finish-btn" onclick="emailPromt()" class="button primary" style="display: none;">Finish</in>
                         </div>
@@ -93,7 +93,7 @@
                             <p> </p>
                             <div class="modal-buttons">
                                 <button class="button.submit" type="submit" onclick="modalEmailInput()">Sign up to receive riddles weekly</button>
-                                <button class="button.sumbit" id="close-modal" onclick="refuseEmail()">I don't want to get sent riddles</button>
+                                <button class="button.sumbit" id="close-modal" onclick="refuseEmail()">No, I don't want to train my brain</button>
                             </div>
                         </div>
                         <div id="modal-phase2" class="center" style="display: none; text-align: center;">
